@@ -11,5 +11,5 @@ class BaseModel(db.Model):
 class AuditableBaseModel(BaseModel):
     __abstract__ = True
 
-    created_at = db.Column(db.Datetime, default=dt.datetime.utcnow)
-    updated_at = db.Column(db.Datetime, onupdate=dt.datetime.utcnow)
+    created_at = db.Column(db.DateTime, default=dt.datetime.utcnow)
+    updated_at = db.Column(db.DateTime, onupdate=dt.datetime.utcnow)
