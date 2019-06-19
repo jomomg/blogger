@@ -1,13 +1,20 @@
-from flask import Flask
+from flask import Flask, Blueprint, jsonify
 
 
-def register_blueprints():
-    pass
+app_bp = Blueprint('app', __name__)
+
+
+@app_bp.route('/')
+def ping():
+    return jsonify({
+        'status': 'success',
+        'message': 'I am running'
+    }), 200
 
 
 def create_app(config):
     app = Flask(__name__)
     app.config.from_object(config)
-    register_blueprints()
+    app.register_blueprint(app_bp)
     return app
 
