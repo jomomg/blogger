@@ -8,5 +8,9 @@ class Post(AuditableBaseModel):
     body = db.Column(db.Text)
     comments = db.relationship('Comment', backref='blog')
 
+    def to_dict(self):
+        fields = ('id', 'title', 'description', 'body', 'comments')
+        return {field: getattr(self, field) for field in fields}
+
     def __repr__(self):
         return f'Blog {self.title}'

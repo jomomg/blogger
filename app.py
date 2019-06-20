@@ -14,6 +14,7 @@ def create_app(config):
     app.config.from_object(config)
 
     import api.models
+    import api.views
 
     db.init_app(app)
     migrate.init_app(app, db)
