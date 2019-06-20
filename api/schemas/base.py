@@ -9,14 +9,14 @@ class BaseSchema(Schema):
     def load_json(self, data):
         result, errors = self.loads(data)
         if errors:
-            raise ValidationError('An error occurred', data=errors)
+            raise ValidationError('an error occurred', data=errors)
         else:
             return result
 
     def load_object(self, data, partial=False):
         result, errors = self.load(data, partial=partial)
         if errors:
-            raise ValidationError('An error occurred', data=errors)
+            raise ValidationError('an error occurred', data=errors)
         else:
             return result
 

@@ -16,3 +16,13 @@ class TestPosts:
         assert res_data['message'] == 'post created'
         assert res_data['data']['id']
         assert res_data['data']['title'] == POST_DATA['title']
+
+    def test_omitting_required_field_raises_error(self, client):
+        res = client.post('/api/posts', data=json.dumps({}))
+        assert res.status_code == 400
+        assert json.loads(res.data)['status'] == 'error'
+
+    def test_blank_fields_not_allowed(self, client):
+        res = client.post('/api/posts', data=json.dumps({'title': ''}))
+        assert res.status_code == 400
+        assert json.loads(res.data)['status'] == 'error'

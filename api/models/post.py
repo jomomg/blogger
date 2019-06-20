@@ -13,4 +13,4 @@ class Post(AuditableBaseModel):
         return {field: getattr(self, field) for field in fields}
 
     def __repr__(self):
-        return f'Blog {self.title}'
+        return f'Post: {self.title}'
