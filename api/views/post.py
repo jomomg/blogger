@@ -10,9 +10,9 @@ from api.schemas.post import PostSchema
 
 @api.route('/posts', methods=['POST'])
 def add_blog_post():
-    post_data = json.loads(request.data)
+    schema = PostSchema()
+    post_data = schema.load_json(request.data)
     post = Post(**post_data)
     post.save()
-    schema = PostSchema()
     data = schema.dump(post).data
     return jsonify(success_('post created', data=data)), 201

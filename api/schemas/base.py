@@ -1,8 +1,24 @@
 from marshmallow import Schema, fields
 
+from api.utils.error_handler import ValidationError
+
 
 class BaseSchema(Schema):
     id = fields.String(dump_only=True)
+
+    def load_json(self, data):
+        result, errors = self.loads(data)
+        if errors:
+            raise ValidationError('An error occurred', data=errors)
+        else:
+            return result
+
+    def load_object(self, data, partial=False):
+        result, errors = self.load(data, partial=partial)
+        if errors:
+            raise ValidationError('An error occurred', data=errors)
+        else:
+            return result
 
 
 class AuditableBaseSchema(BaseSchema):
