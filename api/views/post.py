@@ -14,5 +14,13 @@ def add_blog_post():
     post_data = schema.load_json(request.data)
     post = Post(**post_data)
     post.save()
-    data = schema.dump(post).data
-    return jsonify(success_('post created', data=data)), 201
+    payload = schema.dump(post).data
+    return jsonify(success_('post created', data=payload)), 201
+
+
+@api.route('/posts', methods=['GET'])
+def get_all_posts():
+    schema = PostSchema(many=True)
+    posts = Post.query.all()
+    payload = schema.dump(posts).data
+    return jsonify(success_('posts fetched', data=payload)), 200

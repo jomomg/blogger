@@ -17,6 +17,13 @@ class TestPosts:
         assert res_data['data']['id']
         assert res_data['data']['title'] == POST_DATA['title']
 
+    def test_getting_all_blog_posts_succeeds(self, client, init_db):
+        for i in range(2):
+            client.post('/api/posts', data=json.dumps(POST_DATA))
+        res = client.get('/api/posts')
+        assert res.status_code == 200
+        assert len(json.loads(res.data)['data']) == 2
+
     def test_omitting_required_field_raises_error(self, client):
         res = client.post('/api/posts', data=json.dumps({}))
         assert res.status_code == 400
