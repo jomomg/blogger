@@ -2,7 +2,7 @@ import os
 
 import pytest
 
-from app import create_app
+from app import create_app, db
 from config import config
 
 FLASK_ENV = 'testing'
@@ -21,3 +21,11 @@ def app():
 @pytest.fixture(scope='function')
 def client(app):
     yield app.test_client()
+
+
+@pytest.fixture(scope='function')
+def init_db(app):
+    db.create_all()
+    yield
+    db.session.close()
+    db.drop_all()
