@@ -1,8 +1,8 @@
 import datetime as dt
 
-from api.models import Blog, Comment
+from api.models import Post, Comment
 
-BLOG_DATA = {
+POST_DATA = {
     'title': 'a random title',
     'description': 'a random description',
     'body': 'a random body'
@@ -24,9 +24,9 @@ class TestModels:
         assert isinstance(saved.created_at, dt.datetime)
 
     def test_saving_blog_works(self, init_db):
-        self.assert_saving_object_works(Blog, BLOG_DATA)
+        self.assert_saving_object_works(Post, POST_DATA)
 
     def test_saving_comment_works(self, init_db):
-        blog = self.save_object(Blog, BLOG_DATA)
+        blog = self.save_object(Post, POST_DATA)
         comment_data = {'body': 'this is my body', 'blog_id': blog.id}
         self.assert_saving_object_works(Comment, comment_data)

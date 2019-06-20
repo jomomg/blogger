@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 
 
-from api import api_bp
+from api import api as api_bp
 
 db = SQLAlchemy()
 migrate = Migrate()
