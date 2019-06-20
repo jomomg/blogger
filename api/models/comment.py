@@ -6,5 +6,6 @@ class Comment(AuditableBaseModel):
     body = db.Column(db.String(1000))
     post_id = db.Column(db.String(28), db.ForeignKey('post.id'))
 
+
     def __repr__(self):
         return f'Comment: {self.body}'

@@ -5,5 +5,6 @@ from .post import PostSchema
 
 
 class CommentSchema(AuditableBaseSchema):
-    body = fields.String()
-    post = fields.Nested(PostSchema, only=('id', 'title'))
+    body = fields.String(required=True)
+    post_id = fields.String(required=True, load_only=True)
+    post = fields.Nested(PostSchema, only=['id', 'title'], dump_only=True)
