@@ -1,5 +1,7 @@
 import json
 
+from api.models import Post
+
 POST_DATA = {
     'title': 'a random title',
     'description': 'a random description',
@@ -33,3 +35,14 @@ class TestPosts:
         res = client.post('/api/posts', data=json.dumps({'title': ''}))
         assert res.status_code == 400
         assert json.loads(res.data)['status'] == 'error'
+
+    def test_getting_a_single_post_succeeds(self, client, init_db):
+        post_id = Post(**POST_DATA).save().id
+        res = client.get(f'/api/posts/{post_id}')
+        assert res.status_code == 200
+        assert json.loads(res.data)['data']['id'] == post_id
+
+    def test_getting_a_nonexistent_post_returns_404(self, client, init_db):
+        post_id = 'nonexistent'
+        res = client.get(f'/api/posts/{post_id}')
+        assert res.status_code == 404

@@ -27,6 +27,6 @@ class TestModels:
         self.assert_saving_object_works(Post, POST_DATA)
 
     def test_saving_comment_works(self, init_db):
-        blog = self.save_object(Post, POST_DATA)
-        comment_data = {'body': 'this is my body', 'post_id': blog.id}
+        post = self.save_object(Post, POST_DATA)
+        comment_data = {'body': 'this is my body', 'post_id': post.id}
         self.assert_saving_object_works(Comment, comment_data)

@@ -3,6 +3,7 @@ import base64
 import datetime as dt
 
 from app import db
+from api.utils.error_handler import ValidationError
 
 
 def generate_key():
@@ -21,6 +22,13 @@ class BaseModel(db.Model):
         db.session.add(self)
         db.session.commit()
         return self
+
+    @classmethod
+    def get_or_404(cls, pk):
+        record = cls.query.get(pk)
+        if not record:
+            raise ValidationError(f'{cls.__name__.lower()} not found', status_code=404)
+        return record
 
 
 class AuditableBaseModel(BaseModel):
