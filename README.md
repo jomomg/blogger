@@ -1,8 +1,6 @@
-# Questioner
+# Blogger
 
-Questioner is an api for posing questions for events. Users can log in to the app and post questions for their particular event. Other users can then vote on these questions.
-
-It is made with Django.
+A simple blogging application built with Python and Flask.
 
 #### Technologies
 - Python (3.4+)
